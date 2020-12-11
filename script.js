@@ -8,8 +8,13 @@ playButton.addEventListener('click', () => {
     /* play value inside textInput */
     playText(textInput.value)
 })
+pauseButton.addEventListener('click', pauseText)
+stopButton.addEventListener('click', stopText)
 
 function playText(text) {
+    if (speechSynthesis.pause && speechSynthesis.speaking) {
+        return speechSynthesis.resume()
+    }
     /* SpeechSynthesisUtterance is web speech API */
     const utterance = new SpeechSynthesisUtterance(text)
     /* speed of speaking */
@@ -21,4 +26,13 @@ function playText(text) {
     /* disable text input area when this function run *comp speak */
     textInput.disable = true
     speechSynthesis.speak(utterance)
+}
+
+function pauseText() {
+    if (speechSynthesis.speaking) speechSynthesis.pause()
+}
+
+function stopButton() {
+    speechSynthesis.resume()
+    speechSynthesis.cancel()
 }
