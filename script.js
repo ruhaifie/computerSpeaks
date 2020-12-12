@@ -31,12 +31,16 @@ utterance.addEventListener('boundary', e => {
     currentCharacter = e.charIndex
 })
 
+
+
 /* id=text from html */
 function playText(text) {
     /* pause & speaking is speechSynthesis property */
     if (speechSynthesis.pause && speechSynthesis.speaking) {
         return speechSynthesis.resume()
     }
+    /* if double+ press the pauseButton, pretend nothing happen */
+    if (speechSynthesis.speaking) return
     utterance.text = text
     /* speed of speaking */
     utterance.rate = speedInput.value || 1
